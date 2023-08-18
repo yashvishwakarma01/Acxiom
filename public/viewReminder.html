@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>View Reminder</h1>
+    <div>Date: <span class="date"></span></div>
+    <div>Subject: <span class="subject"></span></div>
+    <div>Description: <span class="description"></span></div>
+    <div>Email: <span class="email"></span></div>
+    <div>Contact: <span class="contact"></span></div>
+    <div>Sms: <span class="sms"></span></div>
+    <button onclick="direct()">Modify</button>
+    <button onclick="del()">Delete</button>
+    <script>
+        async function reminder() {
+               const response = await fetch("http://127.0.0.1:5000/viewReminder");
+               const data = await response.json();
+              
+              document.getElementsByClassName("date")[0].innerText=data['date']
+              document.getElementsByClassName("subject")[0].innerText=data['subject']
+               document.getElementsByClassName("description")[0].innerText=data['description']
+               document.getElementsByClassName("email")[0].innerText=data['email']
+              document.getElementsByClassName("contact")[0].innerText=data['contact']
+             document.getElementsByClassName("sms")[0].innerText=data['sms']            
+}
+      reminder()
+
+      function direct(){
+        location.href="/updateReminder.html";
+      }
+      function del(){
+        fetch('/delete',{
+                method:'DELETE',
+                headers: {
+               'Content-Type':'application/json',
+                }
+            //    body: JSON.stringify(Your_additional_data_info)
+}).then((response)=>{
+    return response.json()
+}).then((res)=>{
+    
+})
+location.href="/dashboard.html";
+      }
+
+      
+    </script>
+</body>
+</html>
